@@ -1,8 +1,8 @@
 {
-  "name": "cordova-plugin-firestore",
-  "version": "4.1.1",
+  "name": "@bazumax/cordova-plugin-firestore",
+  "version": "4.2.1",
   "cordova": {
-    "id": "cordova-plugin-firestore",
+    "id": "@bazumax/cordova-plugin-firestore",
     "platforms": [
       "android",
       "ios",
