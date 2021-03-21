@@ -1,6 +1,6 @@
 {
   "name": "@bazumax/cordova-plugin-firestore",
-  "version": "4.2.1",
+  "version": "4.2.5",
   "cordova": {
     "id": "@bazumax/cordova-plugin-firestore",
     "platforms": [
