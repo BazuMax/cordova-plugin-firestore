@@ -315,12 +315,12 @@
         os_log_debug(OS_LOG_DEFAULT, "Setting Firestore persistance to true");
     }
 
-    if (options[@"timestampsInSnapshots"] != NULL) {
-        bool timestampsInSnapshots = [[options valueForKey:@"timestampsInSnapshots"] boolValue];
+    // if (options[@"timestampsInSnapshots"] != NULL) {
+    //     bool timestampsInSnapshots = [[options valueForKey:@"timestampsInSnapshots"] boolValue];
 
-        [settings setTimestampsInSnapshotsEnabled:timestampsInSnapshots];
-        os_log_debug(OS_LOG_DEFAULT, "Setting Firestore timestampsInSnapshots to true");
-    }
+    //     [settings setTimestampsInSnapshotsEnabled:timestampsInSnapshots];
+    //     os_log_debug(OS_LOG_DEFAULT, "Setting Firestore timestampsInSnapshots to true");
+    // }
 
     NSString *datePrefix = options[@"datePrefix"];
 

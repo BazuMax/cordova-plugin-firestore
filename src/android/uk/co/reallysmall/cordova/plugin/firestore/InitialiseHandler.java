@@ -26,7 +26,6 @@ public class InitialiseHandler implements ActionHandler {
     public static final String FIELDVALUE_ARRAYREMOVE = "fieldValueArrayRemove";
     public static final String FIELDVALUE_ARRAYUNION = "fieldValueArrayUnion";
     public static final String FIELDVALUE_INCREMENT = "fieldValueIncrement";
-    public static final String TIMESTAMPSINSNAPSHOTS = "timestampsInSnapshots";
     public static final String CONFIG = "config";
     private FirestorePlugin firestorePlugin;
     private Context context;
@@ -131,15 +130,8 @@ public class InitialiseHandler implements ActionHandler {
 
             FirestoreLog.d(FirestorePlugin.TAG, "Setting Firestore persistance to " + persist);
 
-            boolean timestampsInSnapshots = false;
-
-            if (options.has(TIMESTAMPSINSNAPSHOTS)) {
-                timestampsInSnapshots = options.getBoolean(TIMESTAMPSINSNAPSHOTS);
-            }
-
             FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                     .setPersistenceEnabled(persist)
-                    .setTimestampsInSnapshotsEnabled(timestampsInSnapshots)
                     .build();
             firestorePlugin.getDatabase().setFirestoreSettings(settings);
 
