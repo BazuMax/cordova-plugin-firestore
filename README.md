@@ -1,4 +1,4 @@
-# Cordova Firestore Plugin
+# Cordova Firestore Plugin (for Capacitor v2+)
 A Google Firebase Firestore plugin to enable realtime synchronisation between app and cloud and automatically handle limited connectivity.
 
 # What is Firestore?
@@ -11,65 +11,26 @@ This plugin supports the following platforms:
 
 - Android
 - iOS
-- Browser
 
 # Installation
 ## Install the plugin
 
 ```bash
-cordova plugin add cordova-plugin-firestore --save
+yarn add cordova-plugin-firestore
 ```
-
-or
-
-```bash
-phonegap plugin add cordova-plugin-firestore
-```
-
-### Optional installation variables for Android
-
-#### ANDROID_FIREBASE_CORE_VERSION
-Version of `com.google.firebase:firebase-core`. This defaults to `16.0.8`.
-
-#### ANDROID_FIREBASE_FIRESTORE_VERSION
-Version of `com.google.firebase:firebase-firestore`. This defaults to `18.2.0`.
-
-You can find the latest versions of these [here](https://firebase.google.com/docs/android/setup#available_libraries).
 
 ## Android specific installation
 Download `google-services.json` to `(your_project_dir)/google-services.json`
 
 Hint: [Get a config file for your Android App](https://support.google.com/firebase/answer/7015592#android)
 
-You must ensure that `google-services.json` is put in the correct location. This can be achieved using the following in your `config.xml`:
-
-```xml
-<platform name="android">
-    <resource-file src="google-services.json" target="app/google-services.json" />
-</platform>
-```
-
-### Dependencies
-#### cordova-support-google-services
-
-In order to ensure Firebase initialises correctly on Android this plugin can be used. This is not automatically added as a dependency to allow for the configuration it performs to be done manually if desired.
+You must ensure that `google-services.json` is put in the correct location: `app/google-services.json`.
 
 ## iOS specific installation
 
 Download `GoogleService-Info.plist` to `(your_project_dir)/GoogleService-Info.plist`
 
 Hint: [Get a config file for your iOS App](https://support.google.com/firebase/answer/7015592#ios)
-
-You must ensure that `GoogleService-Info.plist` is put in the correct location. This can be done as follows:
-
-```xml
-<platform name="ios">
-    <resource-file src="GoogleService-Info.plist" />
-</platform>
-```
-
-#### Keychain Sharing Capability
-If using multiple Firebase plugins it may be necessary to enable this.
 
 ## Firestore configuration
 It is good practice to make sure your Firestore database is only accessible for authorised users, at least for write operations. It is recommended you take time to understand [Firestore rules](https://firebase.google.com/docs/firestore/security/get-started).
@@ -101,18 +62,8 @@ var options = {
   "datePrefix": '__DATE:',
   "fieldValueDelete": "__DELETE",
   "fieldValueServerTimestamp" : "__SERVERTIMESTAMP",
-  "persist": true,
-  "config" : {}
+  "persist": true
 };
-
-if (cordova.platformId === "browser") {
-
-  options.config = {
-    apiKey: "(your api key)",
-    authDomain: "localhost",
-    projectId: "(your project id)"
-  };
-}
 
 Firestore.initialise(options).then(function(db) {
   // Add a second document with a generated ID.
@@ -215,11 +166,6 @@ The client will receive the field as a Javascript Date.
 
 This conversion also happens when specifying a field in a where condition.
 
-### timestampsInSnapshots
-By default this option is set to `false` to mirror the current default. [This explains the setting](https://firebase.google.com/docs/reference/js/firebase.firestore.Settings).
-
-Not setting this to `true` will result in the following message when running in the browser:
-
 ```
 The behavior for Date objects stored in Firestore is going to change
 AND YOUR APP MAY BREAK.
@@ -263,27 +209,8 @@ db.get().collection("mycollection/mydoc/mysubcollection");
 
 Note that the second form is slightly more efficient as it results in less objects being instantiated.
 
-## Typescript
-Support is now included for typescript. Use the following to reference the typescript definitions:
-
-```
-/// <reference types="cordova-plugin-firestore" />
-e
-private static crashlytics: FirebaseCrashlytics = FirebaseCrashlyticsPlugin.initialise();
-crashlytics.logException("my message");
-```
-
-You may also need to add an external to webpack.config.ls:
-
-```
-  externals: {
-    'cordova-plugin-firebase-crashlytics': "cordova-plugin-firebase-crashlytics"
-    '/exec':"cordova/exec"
-  },
-```
 
 ## Learnings and notes
 I have learnt a number of things whilst implementing this:
 - The documentation states that the database cannot be initialised in a seperate thread when using persistence. In my experience this should say it cannot be *used* in multiple threads.
-- When used on Android ensure that at least `com.google.gms:google-services:3.1.1` is used in build dependencies. Earlier versions did not work for me.
 - Yes, I did spell initialise() with an 's' - Original plugin developer @ReallySmallSoftware is from the UK
